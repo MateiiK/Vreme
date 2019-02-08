@@ -27,10 +27,10 @@ TextView regija;
 TextView temp;
 int count = 0;
 TextView[] dneviVreme;
- String reg = "";
-public String dat = "";
-public String tem = "";
-String reg2;
+String reg = "";
+String dat = "";
+String tem = "";
+
 
     private static final String TAG = "Tab1Fragment";
 
