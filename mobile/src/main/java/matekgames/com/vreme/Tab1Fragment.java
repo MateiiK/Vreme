@@ -27,9 +27,9 @@ TextView regija;
 TextView temp;
 int count = 0;
 TextView[] dneviVreme;
-String reg = "";
-String dat = "";
-String tem = "";
+//String reg = "";
+//String dat = "";
+//String tem = "";
 
 
     private static final String TAG = "Tab1Fragment";
@@ -56,47 +56,54 @@ String tem = "";
 
         try {
 
-
-
             pullParserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = pullParserFactory.newPullParser();
-
-
+            final XmlPullParser parser = pullParserFactory.newPullParser();
+            final URL urlVremeZjuPop = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
             InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
-            parser.setInput(in_sZjuPop, null);
-
-            ArrayList<Dan> dnevi = parseXML(parser);
-            String text;
-
-            for (Dan dan:dnevi) {
-
-                text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
-                        + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
-                dneviVreme[count].setText(text);
-                count++;
-
-
-            }
-
-            vremeTrenutno = XmlPullParserFactory.newInstance();
-           final XmlPullParser parser2 = vremeTrenutno.newPullParser();
-
-
-          final URL url = new URL("http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/sl/observationAms_LJUBL-ANA_BEZIGRAD_latest.xml");
-
-//            final InputStream trenutno = Objects.requireNonNull(getActivity()).getAssets().open("vreme.xml");
-            parser2.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-
-
-            Thread thread = new Thread(new Runnable(){
+            Thread threadVremeTriDni = new Thread(new Runnable(){
                 @Override
                 public void run(){
 
                     try {
 
-                       final InputStream trenutno = url.openStream();
+                        final InputStream in_sZjuPop = urlVremeZjuPop.openStream();
+                        parser.setInput(in_sZjuPop, null);
+                        ArrayList<Dan> dnevi = parseXML(parser);
+
+                        String text;
+
+                        for (Dan dan:dnevi) {
+
+                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
+                                    + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
+                            dneviVreme[count].setText(text);
+                            count++;
+                        }
+
+                    } catch (XmlPullParserException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            threadVremeTriDni.start();
+            threadVremeTriDni.join();
+
+            vremeTrenutno = XmlPullParserFactory.newInstance();
+            final XmlPullParser parser2 = vremeTrenutno.newPullParser();
+            final URL urlVremeTrenutno = new URL("http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/sl/observationAms_LJUBL-ANA_BEZIGRAD_latest.xml");
+            parser2.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+
+            Thread threadVremeTrenutno = new Thread(new Runnable(){
+                @Override
+                public void run(){
+
+                    try {
+
+                       final InputStream trenutno = urlVremeTrenutno.openStream();
                         parser2.setInput(trenutno, null);
                         parseXML2(parser2);
 
@@ -108,11 +115,8 @@ String tem = "";
                     }
                 }
             });
-            thread.start();
-            thread.join();
-            regija.setText(reg);
-            datum.setText(dat);
-            temp.setText(tem+getString(R.string.celzija));
+            threadVremeTrenutno.start();
+            threadVremeTrenutno.join();
 
         } catch (XmlPullParserException e) {
 
@@ -182,11 +186,11 @@ String tem = "";
                 case XmlPullParser.START_TAG:
                     name = parser2.getName();
                         if (name.equals("domain_shortTitle")) {
-                            reg = parser2.nextText();
+                            regija.setText(parser2.nextText());
                         } else if (name.equals("tsValid_issued")) {
-                            dat = parser2.nextText();
+                            datum.setText(parser2.nextText());
                         }else if (name.equals("t")) {
-                            tem = parser2.nextText();
+                            temp.setText(parser2.nextText());
                         }
                         break;
             }
