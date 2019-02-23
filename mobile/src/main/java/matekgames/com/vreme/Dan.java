@@ -9,6 +9,9 @@ public class Dan {
     Image icona;
     String temp;
     String razmere;
+    String minTemp;
+    String maxTemp;
+    String veter;
 
 
 
@@ -40,6 +43,26 @@ public class Dan {
         this.temp = temp;
     }
 
+    public String getMinTemp(){
+        return minTemp;
+    }
+    public void setMinTemp(String minTemp){
+        this.minTemp = minTemp;
+    }
+
+    public String getMaxTemp(){
+        return maxTemp;
+    }
+    public void setMaxTemp(String maxTemp){
+        this.maxTemp = maxTemp;
+    }
+
+    public String getVeter(){
+        return veter;
+    }
+    public void setVeter(String veter){
+        this.veter = veter;
+    }
 
 
 

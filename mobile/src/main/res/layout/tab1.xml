@@ -3,7 +3,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:background="@color/crna">
 	
 	<TextView
 		android:id="@+id/regija"
@@ -59,12 +60,13 @@
 	
 	<TextView
 		android:id="@+id/dan1"
+		android:background="@color/transOzadje"
 		android:layout_width="wrap_content"
-		android:layout_height="400sp"
+		android:layout_height="wrap_content"
 		android:layout_below="@+id/temp"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="64dp"
+		android:layout_marginStart="35sp"
+		android:layout_marginTop="8sp"
+		android:layout_marginEnd="64sp"
 		app:layout_constraintEnd_toStartOf="@+id/dan2"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/temp"
@@ -73,7 +75,7 @@
 	<TextView
 		android:id="@+id/dan2"
 		android:layout_width="wrap_content"
-		android:layout_height="400sp"
+		android:layout_height="wrap_content"
 		android:layout_below="@+id/temp"
 		android:layout_centerHorizontal="true"
 		android:layout_marginStart="8dp"
@@ -88,18 +90,60 @@
 	<TextView
 		android:id="@+id/dan3"
 		android:layout_width="wrap_content"
-		android:layout_height="400sp"
+		android:layout_height="wrap_content"
 		android:layout_below="@+id/temp"
-		android:layout_marginStart="60dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="8dp"
+		android:layout_marginStart="60sp"
+		android:layout_marginTop="8sp"
+		android:layout_marginEnd="35sp"
 		android:layout_toEndOf="@+id/dan2"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/dan2"
 		app:layout_constraintTop_toBottomOf="@+id/temp"
 		tools:text="dan3" />
 	
-
+	<TextView
+		android:id="@+id/danes"
+		android:layout_width="wrap_content"
+		android:layout_height="80sp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/dan2" />
+	
+	<TextView
+		android:id="@+id/jutri"
+		android:layout_width="wrap_content"
+		android:layout_height="80sp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/danes" />
+	
+	<TextView
+		android:id="@+id/cez2dni"
+		android:layout_width="wrap_content"
+		android:layout_height="80sp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/jutri" />
+	
+	<TextView
+		android:id="@+id/cez3dni"
+		android:layout_width="wrap_content"
+		android:layout_height="80sp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/cez2dni" />
 
 
 </android.support.constraint.ConstraintLayout>

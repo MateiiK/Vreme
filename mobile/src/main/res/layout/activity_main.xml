@@ -40,32 +40,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/xml_pull_parser_file_url_editor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="http://www.dev2qa.com/demo/xml/employee.xml"/>
-
-        <Button
-            android:id="@+id/xml_pull_parser_parse_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Parse Xml Use Pull Parser"/>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/xml_parse_result_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
