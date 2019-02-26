@@ -22,9 +22,11 @@ public class Tab1Fragment extends Fragment{
 TextView datum;
 TextView regija;
 TextView temp;
+TextView stanjeOb;
 int count = 0;
 TextView[] dneviVreme;
 TextView[] vNaprej;
+TextView[] vNaprej2;
 
     private static final String TAG = "Tab1Fragment";
 
@@ -36,18 +38,25 @@ TextView[] vNaprej;
 
         regija = view.findViewById(R.id.regija);
         datum = view.findViewById(R.id.datum);
+        stanjeOb = view.findViewById(R.id.stanjeOb);
         temp = view.findViewById(R.id.temp);
 
         dneviVreme = new TextView[3];
         dneviVreme[0] = view.findViewById(R.id.dan1);
-        dneviVreme[1] = view.findViewById(R.id.dan2);
-        dneviVreme[2] = view.findViewById(R.id.dan3);
+        dneviVreme[1] = view.findViewById(R.id.dan12);
+       // dneviVreme[2] = view.findViewById(R.id.dan3);
 
         vNaprej = new TextView[4];
         vNaprej[0] = view.findViewById(R.id.danes);
         vNaprej[1] = view.findViewById(R.id.jutri);
         vNaprej[2] = view.findViewById(R.id.cez2dni);
         vNaprej[3] = view.findViewById(R.id.cez3dni);
+
+        vNaprej2 = new TextView[4];
+        vNaprej2[0] = view.findViewById(R.id.danes2);
+        vNaprej2[1] = view.findViewById(R.id.jutri2);
+        vNaprej2[2] = view.findViewById(R.id.cez2dni2);
+        vNaprej2[3] = view.findViewById(R.id.cez3dni2);
 
 
         XmlPullParserFactory pullParserFactory;
@@ -75,14 +84,20 @@ TextView[] vNaprej;
                         ArrayList<Dan> dnevi = parseZjutrajPopoldne(parserZjutrajPopoldne);
 
                         String text;
-
-                        for (Dan dan:dnevi) {
-
-                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
-                                    + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
-                            dneviVreme[count].setText(text);
-                            count++;
-                        }
+                        String text2;
+                            text = dnevi.get(0).getDelDneva() + "\n"
+                                    + dnevi.get(0).getRazmere();
+                            text2 = dnevi.get(0).getTemp() + getString(R.string.celzija);
+                        dneviVreme[0].setText(text);
+                        dneviVreme[1].setText(text2);
+//                        for (Dan dan:dnevi) {
+//
+//                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
+//                                    + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
+//                           // dneviVreme[count].setText(text);
+//                            dneviVreme[0].setText(text);
+//                            count++;
+//                        }
                             count=0;
                         insZjuPop.close();
                     } catch (XmlPullParserException e) {
@@ -116,12 +131,15 @@ TextView[] vNaprej;
                         ArrayList<Dan> dnevi2 = parseVnaprej(parserVnaprej);
 
                         String text;
+                        String text2;
 
                         for (Dan dan:dnevi2) {
 
-                            text=dan.getDatum()+ "\n" + dan.getMinTemp()+getString(R.string.celzija) + "\n"
-                                    + dan.getMaxTemp()+getString(R.string.celzija) + "\n" + dan.getVeter() + "\n" + dan.getRazmere();
+                            text=dan.getDatum()+ "\n" + dan.getRazmere();
+                            text2=dan.getMinTemp()+getString(R.string.celzija) + " / " + dan.getMaxTemp()+getString(R.string.celzija);
+
                             vNaprej[count].setText(text);
+                            vNaprej2[count].setText(text2);
                             count++;
                         }
                         count=0;
@@ -284,18 +302,21 @@ TextView[] vNaprej;
     public void parseVremeTrenutno(XmlPullParser parserVremeTrenutno) throws XmlPullParserException,IOException
     {
         int eventType = parserVremeTrenutno.getEventType();
-
         while (eventType != XmlPullParser.END_DOCUMENT){
             String name;
+            String text;
             switch (eventType){
                 case XmlPullParser.START_TAG:
                     name = parserVremeTrenutno.getName();
                         if (name.equals("domain_shortTitle")) {
                             regija.setText(parserVremeTrenutno.nextText());
-                        } else if (name.equals("tsValid_issued")) {
+                        }else if (name.equals("tsValid_issued_day")) {
                             datum.setText(CETStran(parserVremeTrenutno.nextText()));
                         }else if (name.equals("t")) {
-                            temp.setText(parserVremeTrenutno.nextText()+getString(R.string.celzija));
+                            temp.setText(parserVremeTrenutno.nextText()+ getString(R.string.celzija));
+                        } else if (name.equals("tsValid_issued")) {
+                            text = parserVremeTrenutno.nextText();
+                            stanjeOb.setText("Stanje ob: "+Ura(text)+", " + Datum(text));
                         }
                         break;
             }
@@ -306,5 +327,13 @@ TextView[] vNaprej;
 
     private static String CETStran(String str) {
         return str.substring(0, str.length() - 4);
+    }
+
+    private static String Ura(String ura) {
+        return ura.substring(11,16);
+    }
+
+    private static String Datum(String datum) {
+        return datum.substring(0,10);
     }
 }
