@@ -37,14 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/datum"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical|right"
+        android:layout_marginEnd="8dp"
         android:textSize="75sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintEnd_toStartOf="@+id/trenutno_ikona"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stanjeOb"
         tools:text="18C" />
@@ -62,19 +59,18 @@
         tools:text="12:00" />
     
     <ImageView
-        android:id="@+id/icon_vreme"
+        android:id="@+id/trenutno_ikona"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/temp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/temp"
         app:layout_constraintTop_toTopOf="@+id/temp"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_soncedrugicb" />
+        app:srcCompat="@drawable/ic_sonceeeeeecb" />
     
     <!--<View-->
     <!--android:id="@+id/divider"-->
@@ -105,13 +101,13 @@
         android:layout_width="80dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="8dp"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/dan1"
         app:layout_constraintEnd_toStartOf="@+id/dan1_ikona"
         app:layout_constraintStart_toEndOf="@+id/dan1"
         app:layout_constraintTop_toTopOf="@+id/dan1"
-        app:layout_constraintVertical_bias="1.0"
         tools:text="dan12" />
     
     <View
@@ -221,7 +217,7 @@
         android:id="@+id/dan1_ikona"
         android:layout_width="wrap_content"
         android:layout_height="40sp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/dan12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/dan12"

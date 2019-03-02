@@ -1,18 +1,19 @@
 package matekgames.com.vreme;
 
-
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
-import android.os.AsyncTask;
 
-
-
-
-
-
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager)findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -47,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Tab2Fragment(),"Tab2");
         adapter.addFragment(new Tab3Fragment(),"Tab3");
         adapter.addFragment(new Tab4Fragment(),"Tab4");
+        adapter.addFragment(new Tab5Fragment(),"Tab5");
+        adapter.addFragment(new Tab6Fragment(),"Tab6");
         viewPager.setAdapter(adapter);
+
+
     }
 
 }

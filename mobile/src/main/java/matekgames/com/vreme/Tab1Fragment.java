@@ -1,5 +1,7 @@
 package matekgames.com.vreme;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,26 +9,36 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
+public class Tab1Fragment extends Fragment {
+    TextView datum;
+    TextView regija;
+    TextView temp;
+    TextView stanjeOb;
+    ImageView trenutno_ikona;
+    int count = 0;
+    String ikona;
+    TextView[] dneviVreme;
+    TextView[] vNaprej;
+    TextView[] vNaprej2;
+    ImageView[] ikone;
+    ImageView dan1_ikona;
 
-public class Tab1Fragment extends Fragment{
-TextView datum;
-TextView regija;
-TextView temp;
-TextView stanjeOb;
-int count = 0;
-TextView[] dneviVreme;
-TextView[] vNaprej;
-TextView[] vNaprej2;
 
     private static final String TAG = "Tab1Fragment";
 
@@ -36,16 +48,19 @@ TextView[] vNaprej2;
 
         View view = inflater.inflate(R.layout.tab1, container, false);
 
+
         regija = view.findViewById(R.id.regija);
         datum = view.findViewById(R.id.datum);
         stanjeOb = view.findViewById(R.id.stanjeOb);
         temp = view.findViewById(R.id.temp);
+        trenutno_ikona = view.findViewById(R.id.trenutno_ikona);
 
         dneviVreme = new TextView[3];
         dneviVreme[0] = view.findViewById(R.id.dan1);
         dneviVreme[1] = view.findViewById(R.id.dan12);
-       // dneviVreme[2] = view.findViewById(R.id.dan3);
+//        dneviVreme[2] = view.findViewById(R.id.dan1_ikona);
 
+        dan1_ikona = view.findViewById(R.id.dan1_ikona);
         vNaprej = new TextView[4];
         vNaprej[0] = view.findViewById(R.id.danes);
         vNaprej[1] = view.findViewById(R.id.jutri);
@@ -57,6 +72,13 @@ TextView[] vNaprej2;
         vNaprej2[1] = view.findViewById(R.id.jutri2);
         vNaprej2[2] = view.findViewById(R.id.cez2dni2);
         vNaprej2[3] = view.findViewById(R.id.cez3dni2);
+
+        ikone = new ImageView[4];
+        ikone[0] = view.findViewById(R.id.danes_ikona);
+        ikone[1] = view.findViewById(R.id.jutri_ikona);
+        ikone[2] = view.findViewById(R.id.cez2dni_ikona);
+        ikone[3] = view.findViewById(R.id.cez3dni_ikona);
+
 
 
         XmlPullParserFactory pullParserFactory;
@@ -83,6 +105,7 @@ TextView[] vNaprej2;
                         parserZjutrajPopoldne.setInput(insZjuPop, null);
                         ArrayList<Dan> dnevi = parseZjutrajPopoldne(parserZjutrajPopoldne);
 
+
                         String text;
                         String text2;
                             text = dnevi.get(0).getDelDneva() + "\n"
@@ -90,6 +113,7 @@ TextView[] vNaprej2;
                             text2 = dnevi.get(0).getTemp() + getString(R.string.celzija);
                         dneviVreme[0].setText(text);
                         dneviVreme[1].setText(text2);
+                        dan1_ikona.setImageResource(dnevi.get(0).getIcon());
 //                        for (Dan dan:dnevi) {
 //
 //                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
@@ -137,9 +161,9 @@ TextView[] vNaprej2;
 
                             text=dan.getDatum()+ "\n" + dan.getRazmere();
                             text2=dan.getMinTemp()+getString(R.string.celzija) + " / " + dan.getMaxTemp()+getString(R.string.celzija);
-
                             vNaprej[count].setText(text);
                             vNaprej2[count].setText(text2);
+                            ikone[count].setImageResource(dan.getIcon());
                             count++;
                         }
                         count=0;
@@ -223,7 +247,9 @@ TextView[] vNaprej2;
                         } else if (name.equals("t")) {
                             dnevi.setTemp(parserZjutrajPopoldne.nextText());
                         }else if (name.equals("nn_shortText")) {
-                            dnevi.setRazmere(parserZjutrajPopoldne.nextText());
+                            String text=parserZjutrajPopoldne.nextText();
+                            dnevi.setRazmere(text);
+                            dnevi.setIcon(Ikona(text));
                         }else if (name.equals("valid_daypart")) {
                             dnevi.setDelDneva(parserZjutrajPopoldne.nextText());
                         }
@@ -273,7 +299,9 @@ TextView[] vNaprej2;
                         }else if (name.equals("tx")) {
                             dnevi2.setMaxTemp(parserVnaprej.nextText());
                         }else if (name.equals("nn_shortText")) {
-                            dnevi2.setRazmere(parserVnaprej.nextText());
+                            String text=parserVnaprej.nextText();
+                            dnevi2.setRazmere(text);
+                            dnevi2.setIcon(Ikona(text));
                         }else if (name.equals("dd_longText")) {
                             dnevi2.setVeter(parserVnaprej.nextText());
                         }
@@ -317,6 +345,9 @@ TextView[] vNaprej2;
                         } else if (name.equals("tsValid_issued")) {
                             text = parserVremeTrenutno.nextText();
                             stanjeOb.setText("Stanje ob: "+Ura(text)+", " + Datum(text));
+                        }else if ( name.equals("nn_shortText")){
+                            text=parserVremeTrenutno.nextText();
+                            trenutno_ikona.setImageResource(Ikona(text));
                         }
                         break;
             }
@@ -336,4 +367,24 @@ TextView[] vNaprej2;
     private static String Datum(String datum) {
         return datum.substring(0,10);
     }
-}
+
+    private int Ikona(String ikona) {
+        int resId;
+        if (ikona.equals("jasno")) {
+            resId = getResources().getIdentifier("ic_sonceeeeeecb", "drawable", getActivity().getPackageName());
+            return resId;
+        } else if (ikona.equals("pretežno jasno")){
+            resId = getResources().getIdentifier("ic_zmerno_oblacnocb", "drawable", getActivity().getPackageName());
+            return resId;
+        }else if (ikona.equals("pretežno oblačno")){
+            resId = getResources().getIdentifier("ic_neurje", "drawable", getActivity().getPackageName());
+            return resId;
+        }else {
+            resId = getResources().getIdentifier("ic_oblak_1", "drawable", getActivity().getPackageName());
+            return resId;
+        }
+        }
+    }
+
+
+

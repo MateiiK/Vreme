@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<Button
+		android:id="@+id/runtime_permission_list_granted"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="List Granted Permissions"/>
+	
+	<Button
+		android:id="@+id/runtime_permission_camera"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Use Camera"/>
+	
+	<Button
+		android:id="@+id/runtime_permission_accounts"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Get Accounts"/>
+	
+	<Button
+		android:id="@+id/runtime_permission_location"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Get Location"/>
+	
+	<Button
+		android:id="@+id/runtime_permission_storage"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Write External Storage"/>
+	
+	<Button
+		android:id="@+id/runtime_permission_phone_call"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Make Phone Call"/>
+
+</LinearLayout>

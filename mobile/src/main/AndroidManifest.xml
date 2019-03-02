@@ -30,6 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="RuntimePermissionActivity" />
+	    <activity android:name=".Tab6Fragment$RuntimePermissionActivity" />
+	
+	    <service android:name=".Tab5Fragment$GPSTracker" />
+	    <service android:name=".GPSTracker" />
     </application>
 
 </manifest>

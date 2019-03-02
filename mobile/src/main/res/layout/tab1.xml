@@ -58,7 +58,7 @@
 		tools:text="12:00" />
 	
 	<ImageView
-		android:id="@+id/icon_vreme"
+		android:id="@+id/trenutno_ikona"
 		android:layout_width="104sp"
 		android:layout_height="0dp"
 		android:layout_alignTop="@+id/temp"

@@ -6,7 +6,7 @@ public class Dan {
 
     String datum;
     String delDneva;
-    Image icona;
+    int icon;
     String temp;
     String razmere;
     String minTemp;
@@ -62,6 +62,13 @@ public class Dan {
     }
     public void setVeter(String veter){
         this.veter = veter;
+    }
+
+    public int getIcon(){
+        return icon;
+    }
+    public void setIcon(int icon){
+        this.icon = icon;
     }
 
 
