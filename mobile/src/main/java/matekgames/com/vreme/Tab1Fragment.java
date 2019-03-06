@@ -1,11 +1,14 @@
 package matekgames.com.vreme;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +35,12 @@ public class Tab1Fragment extends Fragment {
     TextView stanjeOb;
     ImageView trenutno_ikona;
     int count = 0;
-    String ikona;
     TextView[] dneviVreme;
     TextView[] vNaprej;
     TextView[] vNaprej2;
     ImageView[] ikone;
     ImageView dan1_ikona;
+    Postaje postaje;
 
 
     private static final String TAG = "Tab1Fragment";
@@ -81,13 +84,16 @@ public class Tab1Fragment extends Fragment {
 
 
 
+        postaje = new Postaje();
+
         XmlPullParserFactory pullParserFactory;
 
         try {
-
+            String test = new String("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
             pullParserFactory = XmlPullParserFactory.newInstance();
             final XmlPullParser parserZjutrajPopoldne = pullParserFactory.newPullParser();
-            final URL urlVremeZjuPop = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
+//            final URL urlVremeZjuPop = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
+            final URL urlVremeZjuPop = new URL(test);
          //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
             parserZjutrajPopoldne.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
@@ -114,15 +120,7 @@ public class Tab1Fragment extends Fragment {
                         dneviVreme[0].setText(text);
                         dneviVreme[1].setText(text2);
                         dan1_ikona.setImageResource(dnevi.get(0).getIcon());
-//                        for (Dan dan:dnevi) {
-//
-//                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
-//                                    + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
-//                           // dneviVreme[count].setText(text);
-//                            dneviVreme[0].setText(text);
-//                            count++;
-//                        }
-                            count=0;
+                        count=0;
                         insZjuPop.close();
                     } catch (XmlPullParserException e) {
                         e.printStackTrace();
@@ -184,7 +182,7 @@ public class Tab1Fragment extends Fragment {
 
             vremeTrenutno = XmlPullParserFactory.newInstance();
             final XmlPullParser parserVremeTrenutno = vremeTrenutno.newPullParser();
-            final URL urlVremeTrenutno = new URL("http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/sl/observationAms_LJUBL-ANA_BEZIGRAD_latest.xml");
+            final URL urlVremeTrenutno = new URL(postaje.getPostaje(getContext()));
             parserVremeTrenutno.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
             Thread threadVremeTrenutno = new Thread(new Runnable(){
@@ -237,8 +235,6 @@ public class Tab1Fragment extends Fragment {
                     break;
                 case XmlPullParser.START_TAG:
                     name = parserZjutrajPopoldne.getName();
-
-
                     if (name.equals("metData")) {
                         dnevi = new Dan();
                     } else if (dnevi != null) {
@@ -287,8 +283,6 @@ public class Tab1Fragment extends Fragment {
                     break;
                 case XmlPullParser.START_TAG:
                     name = parserVnaprej.getName();
-
-
                     if (name.equals("metData")) {
                         dnevi2 = new Dan();
                     } else if (dnevi2 != null) {
@@ -371,16 +365,19 @@ public class Tab1Fragment extends Fragment {
     private int Ikona(String ikona) {
         int resId;
         if (ikona.equals("jasno")) {
-            resId = getResources().getIdentifier("ic_sonceeeeeecb", "drawable", getActivity().getPackageName());
+            resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
             return resId;
-        } else if (ikona.equals("pretežno jasno")){
-            resId = getResources().getIdentifier("ic_zmerno_oblacnocb", "drawable", getActivity().getPackageName());
+        } else if (ikona.equals("delno oblačno")){
+            resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
             return resId;
-        }else if (ikona.equals("pretežno oblačno")){
-            resId = getResources().getIdentifier("ic_neurje", "drawable", getActivity().getPackageName());
+        }else if (ikona.equals("pretežno oblačno") || (ikona.equals("zmerno oblačno"))){
+            resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
+            return resId;
+        }else if (ikona.equals("oblacno")){
+            resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
             return resId;
         }else {
-            resId = getResources().getIdentifier("ic_oblak_1", "drawable", getActivity().getPackageName());
+            resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
             return resId;
         }
         }

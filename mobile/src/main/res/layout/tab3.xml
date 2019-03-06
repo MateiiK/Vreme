@@ -69,8 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/temp"
-        app:layout_constraintTop_toTopOf="@+id/temp"
-        app:srcCompat="@drawable/ic_sonceeeeeecb" />
+        app:layout_constraintTop_toTopOf="@+id/temp"/>
     
     <!--<View-->
     <!--android:id="@+id/divider"-->
@@ -221,7 +220,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/dan12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/dan12"
-        app:srcCompat="@drawable/ic_zmerno_oblacnocb" />
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
         android:id="@+id/danes_ikona"
@@ -232,8 +231,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/danes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/danes"
-        app:layout_optimizationLevel="dimensions"
-        app:srcCompat="@drawable/ic_soncedrugicb" />
+        app:layout_optimizationLevel="dimensions"/>
     
     <ImageView
         android:id="@+id/jutri_ikona"
@@ -245,7 +243,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/jutri"
         app:layout_optimizationLevel="dimensions"
-        app:srcCompat="@drawable/ic_zmerno_oblacnocb" />
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
         android:id="@+id/cez2dni_ikona"
@@ -256,7 +254,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/cez2dni"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cez2dni"
-        app:srcCompat="@drawable/ic_dezevnocb" />
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
         android:id="@+id/cez3dni_ikona"
@@ -266,8 +264,7 @@
         android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/cez3dni"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cez3dni"
-        app:srcCompat="@drawable/ic_soncecb" />
+        app:layout_constraintTop_toTopOf="@+id/cez3dni" />
 
 
 </android.support.constraint.ConstraintLayout>

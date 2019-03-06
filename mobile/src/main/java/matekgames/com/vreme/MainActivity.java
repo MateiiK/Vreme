@@ -17,12 +17,11 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    GPSTracker gps;
+    Postaje postaje;
     private static final String TAG = "MainActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +36,25 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
-
+        gps = new GPSTracker(getApplicationContext());
+        postaje = new Postaje();
     }
 
-    private void setupViewPager(ViewPager viewPager){
+    private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1Fragment(),"Tab1");
-        adapter.addFragment(new Tab2Fragment(),"Tab2");
-        adapter.addFragment(new Tab3Fragment(),"Tab3");
-        adapter.addFragment(new Tab4Fragment(),"Tab4");
-        adapter.addFragment(new Tab5Fragment(),"Tab5");
-        adapter.addFragment(new Tab6Fragment(),"Tab6");
+        adapter.addFragment(new Tab1Fragment(), "Tab1");
+        adapter.addFragment(new Tab2Fragment(), "Tab2");
+        adapter.addFragment(new Tab3Fragment(), "Tab3");
+        adapter.addFragment(new Tab4Fragment(), "Tab4");
+        adapter.addFragment(new Tab5Fragment(), "Tab5");
+        adapter.addFragment(new Tab6Fragment(), "Tab6");
         viewPager.setAdapter(adapter);
 
-
     }
 
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    gps.getLocation();
+    postaje.getPostaja();
+    }
 }
+

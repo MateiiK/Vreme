@@ -71,7 +71,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/temp"
 		app:layout_constraintVertical_bias="0.465"
-		app:srcCompat="@drawable/ic_sonceeeeeecb" />
+		android:src="@drawable/ic_oblacno"/>
 	
 	<!--<View-->
 		<!--android:id="@+id/divider"-->
@@ -285,8 +285,7 @@
 		android:layout_marginEnd="8dp"
 		app:layout_constraintBottom_toBottomOf="@+id/dan12"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/dan12"
-		app:srcCompat="@drawable/ic_oblak_1" />
+		app:layout_constraintTop_toTopOf="@+id/dan12" />
 	
 	<ImageView
 		android:id="@+id/danes_ikona"
@@ -297,8 +296,7 @@
 		app:layout_constraintBottom_toBottomOf="@+id/danes"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/danes"
-		app:layout_optimizationLevel="dimensions"
-		app:srcCompat="@drawable/ic_neurje3" />
+		app:layout_optimizationLevel="dimensions" />
 	
 	<ImageView
 		android:id="@+id/jutri_ikona"
@@ -309,8 +307,7 @@
 		app:layout_constraintBottom_toBottomOf="@+id/jutri"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/jutri"
-		app:layout_optimizationLevel="dimensions"
-		app:srcCompat="@drawable/ic_dezevno" />
+		app:layout_optimizationLevel="dimensions" />
 	
 	<ImageView
 		android:id="@+id/cez2dni_ikona"
@@ -331,8 +328,7 @@
 		android:layout_marginEnd="15dp"
 		app:layout_constraintBottom_toBottomOf="@+id/cez3dni"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/cez3dni"
-		app:srcCompat="@drawable/ic_oblak_1" />
+		app:layout_constraintTop_toTopOf="@+id/cez3dni" />
 
 
 </android.support.constraint.ConstraintLayout>

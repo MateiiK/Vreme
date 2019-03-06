@@ -58,7 +58,6 @@ public class Tab5Fragment extends Fragment {
                     tvAddress.setText(result);
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
                     // Setting DialogHelp Title
                     alertDialog.setTitle("GPS is settings");
                     // Setting DialogHelp Message
@@ -78,28 +77,18 @@ public class Tab5Fragment extends Fragment {
                             dialog.cancel();
                         }
                     });
-                    // Showing Alert Message
                     alertDialog.show();
-                    // Can't get location.
-                    // GPS or network is not enabled.
-                    // Ask user to enable GPS/network in settings.
-                    //gps.showSettingsAlert();
                 }
             }
         });
-//        btnShowAddress = (Button) findViewById(R.id.btnShowAddress);
-//        btnShowAddress.setOnClickListener(new View.OnClickListener() {
-                //you can hard-code the lat & long if you have issues with getting it
-                //remove the below if-condition and use the following couple of lines
-                //double latitude = 37.422005;
-                //double longitude = -122.084095
+
 
 
 
         return view;
     }
 
-    private class GeocoderHandler extends Handler {
+    class GeocoderHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
             String locationAddress;
