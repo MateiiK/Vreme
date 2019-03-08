@@ -17,6 +17,8 @@ public class Dan {
     String minTemp;
     String maxTemp;
     String veter;
+    String regija;
+    String stanjeOb;
     double lat;
     double lon;
 
@@ -69,6 +71,20 @@ public class Dan {
     }
     public void setVeter(String veter){
         this.veter = veter;
+    }
+
+    public String getRegija(){
+        return regija;
+    }
+    public void setRegija(String regija){
+        this.regija = regija;
+    }
+
+    public String getStanjeOb(){
+        return stanjeOb;
+    }
+    public void setStanjeOb(String stanjeOb){
+        this.stanjeOb = stanjeOb;
     }
 
     public int getIcon(){

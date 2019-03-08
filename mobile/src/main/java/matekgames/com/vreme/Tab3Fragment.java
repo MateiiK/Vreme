@@ -58,141 +58,141 @@ public class Tab3Fragment extends Fragment{
         vNaprej2[2] = view.findViewById(R.id.cez2dni2);
         vNaprej2[3] = view.findViewById(R.id.cez3dni2);
 
-
-        XmlPullParserFactory pullParserFactory;
-
-        try {
-
-            pullParserFactory = XmlPullParserFactory.newInstance();
-            final XmlPullParser parserZjutrajPopoldne = pullParserFactory.newPullParser();
-            final URL urlVremeZjuPop = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
-            //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
-            parserZjutrajPopoldne.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-
-
-//          ZJUTRAJ / POPOLDNE NAPOVED-->
-
-
-            Thread threadZjutrajPopoldne = new Thread(new Runnable(){
-                @Override
-                public void run(){
-
-                    try {
-
-                        final InputStream insZjuPop = urlVremeZjuPop.openStream();
-                        parserZjutrajPopoldne.setInput(insZjuPop, null);
-                        ArrayList<Dan> dnevi = parseZjutrajPopoldne(parserZjutrajPopoldne);
-
-                        String text;
-                        String text2;
-                        text = dnevi.get(0).getDelDneva() + "\n"
-                                + dnevi.get(0).getRazmere();
-                        text2 = dnevi.get(0).getTemp() + getString(R.string.celzija);
-                        dneviVreme[0].setText(text);
-                        dneviVreme[1].setText(text2);
-//                        for (Dan dan:dnevi) {
 //
-//                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
-//                                    + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
-//                           // dneviVreme[count].setText(text);
-//                            dneviVreme[0].setText(text);
+//        XmlPullParserFactory pullParserFactory;
+//
+//        try {
+//
+//            pullParserFactory = XmlPullParserFactory.newInstance();
+//            final XmlPullParser parserZjutrajPopoldne = pullParserFactory.newPullParser();
+//            final URL urlVremeZjuPop = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
+//            //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
+//            parserZjutrajPopoldne.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+//
+//
+////          ZJUTRAJ / POPOLDNE NAPOVED-->
+//
+//
+//            Thread threadZjutrajPopoldne = new Thread(new Runnable(){
+//                @Override
+//                public void run(){
+//
+//                    try {
+//
+//                        final InputStream insZjuPop = urlVremeZjuPop.openStream();
+//                        parserZjutrajPopoldne.setInput(insZjuPop, null);
+//                        ArrayList<Dan> dnevi = parseZjutrajPopoldne(parserZjutrajPopoldne);
+//
+//                        String text;
+//                        String text2;
+//                        text = dnevi.get(0).getDelDneva() + "\n"
+//                                + dnevi.get(0).getRazmere();
+//                        text2 = dnevi.get(0).getTemp() + getString(R.string.celzija);
+//                        dneviVreme[0].setText(text);
+//                        dneviVreme[1].setText(text2);
+////                        for (Dan dan:dnevi) {
+////
+////                            text=dan.getDatum()+ "\n" + dan.getDelDneva() + "\n"
+////                                    + dan.getRazmere() + "\n" + dan.getTemp()+getString(R.string.celzija) + "\n";
+////                           // dneviVreme[count].setText(text);
+////                            dneviVreme[0].setText(text);
+////                            count++;
+////                        }
+//                        count=0;
+//                        insZjuPop.close();
+//                    } catch (XmlPullParserException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            threadZjutrajPopoldne.start();
+//            threadZjutrajPopoldne.join();
+//
+//
+////          4 DNEVNA NAPOVED-->
+//
+//
+//            pullParserFactory = XmlPullParserFactory.newInstance();
+//            final XmlPullParser parserVnaprej = pullParserFactory.newPullParser();
+//            final URL urlVnaprej = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SLOVENIA_MIDDLE_latest.xml");
+//            //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
+//            parserVnaprej.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+//
+//            Thread threadVnaprej = new Thread(new Runnable(){
+//                @Override
+//                public void run(){
+//
+//                    try {
+//
+//                        final InputStream insVnaprej = urlVnaprej.openStream();
+//                        parserVnaprej.setInput(insVnaprej, null);
+//                        ArrayList<Dan> dnevi2 = parseVnaprej(parserVnaprej);
+//
+//                        String text;
+//                        String text2;
+//
+//                        for (Dan dan:dnevi2) {
+//
+//                            text=dan.getDatum()+ "\n" + dan.getRazmere();
+//                            text2=dan.getMinTemp()+getString(R.string.celzija) + " / " + dan.getMaxTemp()+getString(R.string.celzija);
+//
+//                            vNaprej[count].setText(text);
+//                            vNaprej2[count].setText(text2);
 //                            count++;
 //                        }
-                        count=0;
-                        insZjuPop.close();
-                    } catch (XmlPullParserException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            threadZjutrajPopoldne.start();
-            threadZjutrajPopoldne.join();
-
-
-//          4 DNEVNA NAPOVED-->
-
-
-            pullParserFactory = XmlPullParserFactory.newInstance();
-            final XmlPullParser parserVnaprej = pullParserFactory.newPullParser();
-            final URL urlVnaprej = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SLOVENIA_MIDDLE_latest.xml");
-            //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
-            parserVnaprej.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-
-            Thread threadVnaprej = new Thread(new Runnable(){
-                @Override
-                public void run(){
-
-                    try {
-
-                        final InputStream insVnaprej = urlVnaprej.openStream();
-                        parserVnaprej.setInput(insVnaprej, null);
-                        ArrayList<Dan> dnevi2 = parseVnaprej(parserVnaprej);
-
-                        String text;
-                        String text2;
-
-                        for (Dan dan:dnevi2) {
-
-                            text=dan.getDatum()+ "\n" + dan.getRazmere();
-                            text2=dan.getMinTemp()+getString(R.string.celzija) + " / " + dan.getMaxTemp()+getString(R.string.celzija);
-
-                            vNaprej[count].setText(text);
-                            vNaprej2[count].setText(text2);
-                            count++;
-                        }
-                        count=0;
-                        insVnaprej.close();
-                    } catch (XmlPullParserException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            threadVnaprej.start();
-            threadVnaprej.join();
-
-
-            //          TRENUTNA NAPOVED-->
-
-
-            vremeTrenutno = XmlPullParserFactory.newInstance();
-            final XmlPullParser parserVremeTrenutno = vremeTrenutno.newPullParser();
-            final URL urlVremeTrenutno = new URL("http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/sl/observationAms_LJUBL-ANA_BEZIGRAD_latest.xml");
-            parserVremeTrenutno.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-
-            Thread threadVremeTrenutno = new Thread(new Runnable(){
-                @Override
-                public void run(){
-
-                    try {
-
-                        final InputStream trenutno = urlVremeTrenutno.openStream();
-                        parserVremeTrenutno.setInput(trenutno, null);
-                        parseVremeTrenutno(parserVremeTrenutno);
-                        trenutno.close();
-
-
-                    } catch (XmlPullParserException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            threadVremeTrenutno.start();
-            threadVremeTrenutno.join();
-
-        } catch (XmlPullParserException e) {
-
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//                        count=0;
+//                        insVnaprej.close();
+//                    } catch (XmlPullParserException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            threadVnaprej.start();
+//            threadVnaprej.join();
+//
+//
+//            //          TRENUTNA NAPOVED-->
+//
+//
+//            vremeTrenutno = XmlPullParserFactory.newInstance();
+//            final XmlPullParser parserVremeTrenutno = vremeTrenutno.newPullParser();
+//            final URL urlVremeTrenutno = new URL("http://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/sl/observationAms_LJUBL-ANA_BEZIGRAD_latest.xml");
+//            parserVremeTrenutno.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+//
+//            Thread threadVremeTrenutno = new Thread(new Runnable(){
+//                @Override
+//                public void run(){
+//
+//                    try {
+//
+//                        final InputStream trenutno = urlVremeTrenutno.openStream();
+//                        parserVremeTrenutno.setInput(trenutno, null);
+//                        parseVremeTrenutno(parserVremeTrenutno);
+//                        trenutno.close();
+//
+//
+//                    } catch (XmlPullParserException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            threadVremeTrenutno.start();
+//            threadVremeTrenutno.join();
+//
+//        } catch (XmlPullParserException e) {
+//
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return view;
     }

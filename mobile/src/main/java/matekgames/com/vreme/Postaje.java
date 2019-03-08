@@ -28,7 +28,7 @@ public class Postaje {
     double lat;
     double lon;
     String postaja;
-    String najblizjaPostaja;
+    String[] najblizjaPostaja;
     String base = ("http://meteo.arso.gov.si/uploads/probase/www/");
     int count;
     double latMin = 0;
@@ -39,17 +39,32 @@ public class Postaje {
     double testing = 10000000;
 
 
-    public String getPostaja() {return postaja;}
-    public void setPostaja(String postaja) {this.postaja = postaja;}
+    public String getPostaja() {
+        return postaja;
+    }
 
-    public double getLat() {return lat;}
-    public void setLat(double lat) {this.lat = lat;}
+    public void setPostaja(String postaja) {
+        this.postaja = postaja;
+    }
 
-    public double getLon() {return lon;}
-    public void setLon(double lon) {this.lon = lon;}
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
 
 
-    String[] postajeTrenutnoPovezave = new String[]{
+    String[] urlPostajeTrenutno = new String[]{
             "observ/surface/text/sl/observation_NOVA-GOR_latest.xml",
             "observ/surface/text/sl/observation_CELJE_latest.xml",
             "observ/surface/text/sl/observation_CRNOMELJ_latest.xml",
@@ -72,14 +87,44 @@ public class Postaje {
             "observ/surface/text/sl/observation_VOJSKO_latest.xml"
     };
 
+    String[] urlPostajeZjutrajPopoldne = new String[]{
+            "fproduct/text/sl/fcast_SI_BELOKRANJSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_BOVSKA_latest.xml",
+            "fproduct/text/sl/fcast_SLOVENIA_MIDDLE_latest.xml",
+            "fproduct/text/sl/fcast_SI_DOLENJSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_GORENJSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_GORISKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_KOCEVSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_KOROSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_NOTRANJSKO-KRASKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_OBALNO-KRASKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_PODRAVSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_POMURSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_SAVINJSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_SPODNJEPOSAVSKA_latest.xml",
+            "fproduct/text/sl/fcast_SI_ZGORNJESAVSKA_latest.xml"
+
+
+    };
+
+    String[] urlPostajeTriDni = new String[]{
+            "fproduct/text/sl/fcast_SLOVENIA_SOUTH-EAST_latest.xml",
+            "fproduct/text/sl/fcast_SLOVENIA_SOUTH-WEST_latest.xml",
+            "fproduct/text/sl/fcast_SLOVENIA_MIDDLE_latest.xml",
+            "fproduct/text/sl/fcast_SLOVENIA_NORTH-EAST_latest.xml",
+            "fproduct/text/sl/fcast_SLOVENIA_NORTH-WEST_latest.xml"
+    };
+
+
     XmlPullParserFactory postajePullParserFactory;
 
 
-    public String getPostaje(Context context) {
+    public String[] getPostaje(Context context) {
 
         gps = new GPSTracker(context);
 
-
+        najblizjaPostaja = new String[5];
         try {
             postajePullParserFactory = XmlPullParserFactory.newInstance();
             final XmlPullParser parserPostajeTrenutno = postajePullParserFactory.newPullParser();
@@ -89,32 +134,60 @@ public class Postaje {
                 @Override
                 public void run() {
                     try {
-                        for(count = 0; count<postajeTrenutnoPovezave.length;count++) {
-                            final URL postajeTrenutnoURL = new URL(base+postajeTrenutnoPovezave[count]);
+                        for (count = 0; count < urlPostajeTrenutno.length; count++) {
+                            final URL postajeTrenutnoURL = new URL(base + urlPostajeTrenutno[count]);
                             final InputStream trenutno = postajeTrenutnoURL.openStream();
                             parserPostajeTrenutno.setInput(trenutno, null);
                             ArrayList<Postaje> postajeTrenutnoList = parsePostajaTrenutno(parserPostajeTrenutno);
 
-                            String text;
-                            String text2;
 
                             for (Postaje postaje : postajeTrenutnoList) {
-                                double latMin = postaje.getLat();
-                                double lonMin = postaje.getLon();
-                                Log.e("lat postaje", String.valueOf(postaje.getLat()));
-                                Log.e("lon postaje", String.valueOf(postaje.getLon()));
-                                Log.e("lat gps get", String.valueOf(gps.getLatitude()));
-                                Log.e("lon gps get", String.valueOf(gps.getLongitude()));
-                                Location.distanceBetween(gps.getLatitude(),gps.getLongitude(),postaje.getLat(),postaje.getLon(),izid);
-                                if(testing> izid[0]){
-                                    testing=izid[0];
-                                    najblizjaPostaja = base+postajeTrenutnoPovezave[count];
-                                    Log.e("Najkrajsa", String.valueOf(postaje.getPostaja()));
+                                Location.distanceBetween(gps.getLatitude(), gps.getLongitude(), postaje.getLat(), postaje.getLon(), izid);
+                                if (testing > izid[0]) {
+                                    testing = izid[0];
+                                    najblizjaPostaja[0] = base + urlPostajeTrenutno[count];
                                 }
-//                                Log.e("Najkrajsa", String.valueOf(testing));
                             }
                             trenutno.close();
-                        }count = 0;
+                        }
+                        testing = 10000000;
+
+                        for (count = 0; count < urlPostajeZjutrajPopoldne.length; count++) {
+                            final URL postajeTrenutnoURL = new URL(base + urlPostajeZjutrajPopoldne[count]);
+                            final InputStream trenutno = postajeTrenutnoURL.openStream();
+                            parserPostajeTrenutno.setInput(trenutno, null);
+                            ArrayList<Postaje> postajeTrenutnoList = parsePostajaTrenutno(parserPostajeTrenutno);
+
+
+                            for (Postaje postaje : postajeTrenutnoList) {
+                                Location.distanceBetween(gps.getLatitude(), gps.getLongitude(), postaje.getLat(), postaje.getLon(), izid);
+                                if (testing > izid[0]) {
+                                    testing = izid[0];
+                                    najblizjaPostaja[1] = base + urlPostajeZjutrajPopoldne[count];
+                                }
+                            }
+                            trenutno.close();
+                        }
+                        testing = 10000000;
+
+                        for (count = 0; count < urlPostajeTriDni.length; count++) {
+                            final URL postajeTrenutnoURL = new URL(base + urlPostajeTriDni[count]);
+                            final InputStream trenutno = postajeTrenutnoURL.openStream();
+                            parserPostajeTrenutno.setInput(trenutno, null);
+                            ArrayList<Postaje> postajeTrenutnoList = parsePostajaTrenutno(parserPostajeTrenutno);
+
+
+                            for (Postaje postaje : postajeTrenutnoList) {
+                                Location.distanceBetween(gps.getLatitude(), gps.getLongitude(), postaje.getLat(), postaje.getLon(), izid);
+                                if (testing > izid[0]) {
+                                    testing = izid[0];
+
+                                    najblizjaPostaja[2] = base + urlPostajeTriDni[count];
+                                }
+                            }
+                            trenutno.close();
+                        }
+                        testing = 10000000;
 
                     } catch (XmlPullParserException e) {
                         e.printStackTrace();
@@ -126,47 +199,49 @@ public class Postaje {
             threadVremeTrenutno.start();
             threadVremeTrenutno.join();
 
-        } catch ( XmlPullParserException e) {
+        } catch (XmlPullParserException e) {
             e.printStackTrace();
-        } catch ( InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return najblizjaPostaja;
     }
 
-    private ArrayList<Postaje> parsePostajaTrenutno(XmlPullParser parserPostajeTrenutno) throws XmlPullParserException, IOException {
+            private ArrayList<Postaje> parsePostajaTrenutno (XmlPullParser parserPostajeTrenutno) throws
+            XmlPullParserException, IOException {
 
-        ArrayList<Postaje> Postaje = null;
-        int eventType = parserPostajeTrenutno.getEventType();
-        Postaje postajeTrenutnoList = null;
-
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            String name;
-            switch (eventType) {
-                case XmlPullParser.START_DOCUMENT:
-                    Postaje = new ArrayList();
-                    break;
-                case XmlPullParser.START_TAG:
-                    name = parserPostajeTrenutno.getName();
-                    if (name.equals("metData")) {
-                        postajeTrenutnoList = new Postaje();
-                    } else if (postajeTrenutnoList != null) {
-                        if (name.equals("domain_lat")) {
-                            postajeTrenutnoList.setLat(Double.valueOf(parserPostajeTrenutno.nextText()));
-                        } else if (name.equals("domain_lon")) {
-                            postajeTrenutnoList.setLon(Double.valueOf(parserPostajeTrenutno.nextText()));
-                        }
-                        break;
+                ArrayList<Postaje> Postaje = null;
+                int eventType = parserPostajeTrenutno.getEventType();
+                Postaje postajeTrenutnoList = null;
+                while (eventType != XmlPullParser.END_DOCUMENT) {
+                    String name;
+                    switch (eventType) {
+                        case XmlPullParser.START_DOCUMENT:
+                            Postaje = new ArrayList();
+                            break;
+                        case XmlPullParser.START_TAG:
+                            name = parserPostajeTrenutno.getName();
+                            if (name.equals("metData")) {
+                                postajeTrenutnoList = new Postaje();
+                            } else if (postajeTrenutnoList != null) {
+                                if (name.equals("domain_lat")) {
+                                    postajeTrenutnoList.setLat(Double.valueOf(parserPostajeTrenutno.nextText()));
+                                } else if (name.equals("domain_lon")) {
+                                    postajeTrenutnoList.setLon(Double.valueOf(parserPostajeTrenutno.nextText()));
+                                }
+                                break;
+                            }
+                            break;
+                        case XmlPullParser.END_TAG:
+                            name = parserPostajeTrenutno.getName();
+                            if (name.equalsIgnoreCase("metData") && postajeTrenutnoList != null) {
+                                Postaje.add(postajeTrenutnoList);
+                            }
                     }
-                    break;
-                case XmlPullParser.END_TAG:
-                    name = parserPostajeTrenutno.getName();
-                    if (name.equalsIgnoreCase("metData") && postajeTrenutnoList != null) {
-                        Postaje.add(postajeTrenutnoList);
-                    }
-            }
-            eventType = parserPostajeTrenutno.next();
-        }
-    return Postaje;
+                    eventType = parserPostajeTrenutno.next();
+                }
+                return Postaje;
     }
 }
+
+

@@ -1,5 +1,6 @@
 package matekgames.com.vreme;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -41,6 +44,7 @@ public class Tab1Fragment extends Fragment {
     ImageView[] ikone;
     ImageView dan1_ikona;
     Postaje postaje;
+    String[] najblizjaPostaja;
 
 
     private static final String TAG = "Tab1Fragment";
@@ -84,17 +88,42 @@ public class Tab1Fragment extends Fragment {
 
 
 
+
+        return view;
+    }
+
+    public void onStart(){
+        super.onStart();
         postaje = new Postaje();
+        najblizjaPostaja = postaje.getPostaje(getContext());
+        myParser();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                myParser();
+
+            }
+        });
+
+    }
+
+    private void myParser(){
+
 
         XmlPullParserFactory pullParserFactory;
-
         try {
-            String test = new String("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
+
             pullParserFactory = XmlPullParserFactory.newInstance();
             final XmlPullParser parserZjutrajPopoldne = pullParserFactory.newPullParser();
-//            final URL urlVremeZjuPop = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SI_OSREDNJESLOVENSKA_latest.xml");
-            final URL urlVremeZjuPop = new URL(test);
-         //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
+            final URL urlVremeZjuPop = new  URL(najblizjaPostaja[1]);
+            Log.e("tab1 0", String.valueOf(najblizjaPostaja[0]));
             parserZjutrajPopoldne.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
 
@@ -109,18 +138,23 @@ public class Tab1Fragment extends Fragment {
 
                         final InputStream insZjuPop = urlVremeZjuPop.openStream();
                         parserZjutrajPopoldne.setInput(insZjuPop, null);
-                        ArrayList<Dan> dnevi = parseZjutrajPopoldne(parserZjutrajPopoldne);
+                        final ArrayList<Dan> dnevi = parseZjutrajPopoldne(parserZjutrajPopoldne);
 
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String text;
+                                String text2;
+                                text = dnevi.get(0).getDelDneva() + "\n"
+                                        + dnevi.get(0).getRazmere();
+                                text2 = dnevi.get(0).getTemp() + getString(R.string.celzija);
+                                dneviVreme[0].setText(text);
+                                dneviVreme[1].setText(text2);
+                                dan1_ikona.setImageResource(dnevi.get(0).getIcon());
+                                count=0;
+                            }
+                        });
 
-                        String text;
-                        String text2;
-                            text = dnevi.get(0).getDelDneva() + "\n"
-                                    + dnevi.get(0).getRazmere();
-                            text2 = dnevi.get(0).getTemp() + getString(R.string.celzija);
-                        dneviVreme[0].setText(text);
-                        dneviVreme[1].setText(text2);
-                        dan1_ikona.setImageResource(dnevi.get(0).getIcon());
-                        count=0;
                         insZjuPop.close();
                     } catch (XmlPullParserException e) {
                         e.printStackTrace();
@@ -138,7 +172,7 @@ public class Tab1Fragment extends Fragment {
 
             pullParserFactory = XmlPullParserFactory.newInstance();
             final XmlPullParser parserVnaprej = pullParserFactory.newPullParser();
-            final URL urlVnaprej = new URL("http://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_SLOVENIA_MIDDLE_latest.xml");
+            final URL urlVnaprej = new URL(najblizjaPostaja[2]);
             //   InputStream in_sZjuPop = Objects.requireNonNull(getActivity()).getAssets().open("vreme3.xml");
             parserVnaprej.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
@@ -150,21 +184,27 @@ public class Tab1Fragment extends Fragment {
 
                         final InputStream insVnaprej = urlVnaprej.openStream();
                         parserVnaprej.setInput(insVnaprej, null);
-                        ArrayList<Dan> dnevi2 = parseVnaprej(parserVnaprej);
+                        final ArrayList<Dan> dnevi2 = parseVnaprej(parserVnaprej);
 
-                        String text;
-                        String text2;
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String text;
+                                String text2;
 
-                        for (Dan dan:dnevi2) {
+                                for (Dan dan:dnevi2) {
 
-                            text=dan.getDatum()+ "\n" + dan.getRazmere();
-                            text2=dan.getMinTemp()+getString(R.string.celzija) + " / " + dan.getMaxTemp()+getString(R.string.celzija);
-                            vNaprej[count].setText(text);
-                            vNaprej2[count].setText(text2);
-                            ikone[count].setImageResource(dan.getIcon());
-                            count++;
-                        }
-                        count=0;
+                                    text=dan.getDatum()+ "\n" + dan.getRazmere();
+                                    text2=dan.getMinTemp()+getString(R.string.celzija) + " / " + dan.getMaxTemp()+getString(R.string.celzija);
+                                    vNaprej[count].setText(text);
+                                    vNaprej2[count].setText(text2);
+                                    ikone[count].setImageResource(dan.getIcon());
+                                    count++;
+                                }
+                                count=0;
+                            }
+                        });
+
                         insVnaprej.close();
                     } catch (XmlPullParserException e) {
                         e.printStackTrace();
@@ -182,7 +222,7 @@ public class Tab1Fragment extends Fragment {
 
             vremeTrenutno = XmlPullParserFactory.newInstance();
             final XmlPullParser parserVremeTrenutno = vremeTrenutno.newPullParser();
-            final URL urlVremeTrenutno = new URL(postaje.getPostaje(getContext()));
+            final URL urlVremeTrenutno = new URL(najblizjaPostaja[0]);
             parserVremeTrenutno.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
             Thread threadVremeTrenutno = new Thread(new Runnable(){
@@ -193,7 +233,18 @@ public class Tab1Fragment extends Fragment {
 
                        final InputStream trenutno = urlVremeTrenutno.openStream();
                         parserVremeTrenutno.setInput(trenutno, null);
-                        parseVremeTrenutno(parserVremeTrenutno);
+                        final ArrayList<Dan> trenutnoVreme = parseVremeTrenutno(parserVremeTrenutno);
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                regija.setText(trenutnoVreme.get(0).getRegija());
+                                datum.setText(trenutnoVreme.get(0).getDatum());
+                                temp.setText(trenutnoVreme.get(0).getTemp());
+                                stanjeOb.setText(trenutnoVreme.get(0).getStanjeOb());
+                                trenutno_ikona.setImageResource(trenutnoVreme.get(0).getIcon());
+                            }
+                        });
                         trenutno.close();
 
 
@@ -216,7 +267,7 @@ public class Tab1Fragment extends Fragment {
             e.printStackTrace();
         }
 
-        return view;
+
     }
 
     //          ZJUTRAJ / POPOLDNE NAPOVED-->
@@ -306,7 +357,9 @@ public class Tab1Fragment extends Fragment {
                 case XmlPullParser.END_TAG:
                     name = parserVnaprej.getName();
                     if (name.equalsIgnoreCase("metData") && dnevi2 != null){
-                        Dan.add(dnevi2);
+                        if (Dan != null) {
+                            Dan.add(dnevi2);
+                        }
                     }
             }
             eventType = parserVnaprej.next();
@@ -321,33 +374,48 @@ public class Tab1Fragment extends Fragment {
 
      XmlPullParserFactory vremeTrenutno;
 
-    public void parseVremeTrenutno(XmlPullParser parserVremeTrenutno) throws XmlPullParserException,IOException
+    private ArrayList<Dan> parseVremeTrenutno(XmlPullParser parserVremeTrenutno) throws XmlPullParserException,IOException
     {
+        ArrayList<Dan> Dan = null;
         int eventType = parserVremeTrenutno.getEventType();
+        Dan trenutnoVreme = null;
         while (eventType != XmlPullParser.END_DOCUMENT){
             String name;
             String text;
             switch (eventType){
+                case XmlPullParser.START_DOCUMENT:
+                Dan = new ArrayList();
+                break;
                 case XmlPullParser.START_TAG:
                     name = parserVremeTrenutno.getName();
+                    if (name.equals("metData")) {
+                        trenutnoVreme = new Dan();
+                    }else if(trenutnoVreme != null) {
                         if (name.equals("domain_shortTitle")) {
-                            regija.setText(parserVremeTrenutno.nextText());
-                        }else if (name.equals("tsValid_issued_day")) {
-                            datum.setText(CETStran(parserVremeTrenutno.nextText()));
-                        }else if (name.equals("t")) {
-                            temp.setText(parserVremeTrenutno.nextText()+ getString(R.string.celzija));
+                            trenutnoVreme.setRegija(parserVremeTrenutno.nextText());
+                        } else if (name.equals("tsValid_issued_day")) {
+                            trenutnoVreme.setDatum(CETStran(parserVremeTrenutno.nextText()));
+                        } else if (name.equals("t")) {
+                            trenutnoVreme.setTemp(parserVremeTrenutno.nextText() + getString(R.string.celzija));
                         } else if (name.equals("tsValid_issued")) {
                             text = parserVremeTrenutno.nextText();
-                            stanjeOb.setText("Stanje ob: "+Ura(text)+", " + Datum(text));
-                        }else if ( name.equals("nn_shortText")){
-                            text=parserVremeTrenutno.nextText();
-                            trenutno_ikona.setImageResource(Ikona(text));
+                            trenutnoVreme.setStanjeOb("Stanje ob: " + Ura(text) + ", " + Datum(text));
+                        } else if (name.equals("nn_shortText")) {
+                            trenutnoVreme.setIcon(Ikona(parserVremeTrenutno.nextText()));
                         }
+                    }
                         break;
+                case XmlPullParser.END_TAG:
+                    name = parserVremeTrenutno.getName();
+                    if (name.equalsIgnoreCase("metData") && trenutnoVreme != null){
+                        if (Dan != null) {
+                            Dan.add(trenutnoVreme);
+                        }
+                    }
             }
             eventType = parserVremeTrenutno.next();
         }
-
+        return Dan;
     }
 
     private static String CETStran(String str) {
@@ -373,7 +441,7 @@ public class Tab1Fragment extends Fragment {
         }else if (ikona.equals("pretežno oblačno") || (ikona.equals("zmerno oblačno"))){
             resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
             return resId;
-        }else if (ikona.equals("oblacno")){
+        }else if (ikona.equals("oblačno")){
             resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
             return resId;
         }else {
