@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <TextView
+        android:id="@+id/danes"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        tools:text="danes vreme\nneki" />
+    
+    <TextView
+        android:id="@+id/jutri"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/danes"
+        tools:text="jutri\nneki" />
+    
+    <TextView
+        android:id="@+id/cez2dni"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jutri"
+        tools:text="pojustrinjem\nneki" />
+    
+    <TextView
+        android:id="@+id/cez3dni"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cez2dni"
+        tools:text="cez 3 dni\nneki" />
+    
+    <TextView
+        android:id="@+id/cez4dni"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cez3dni"
+        tools:text="cez 3 dni\nneki" />
+    
+    <TextView
+        android:id="@+id/cez5dni"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cez4dni"
+        tools:text="pojustrinjem\nneki" />
+    
+    <!--<TextView-->
+        <!--android:id="@+id/cez6dni"-->
+        <!--android:layout_width="150sp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/cez5dni"-->
+        <!--tools:text="pojustrinjem\nneki" />-->
+    
+
+    
+    <TextView
+        android:id="@+id/danes2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/danes"
+        app:layout_constraintEnd_toStartOf="@+id/danes_ikona"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/danes"
+        app:layout_constraintTop_toTopOf="@+id/danes"
+        tools:text="20" />
+    
+    <TextView
+        android:id="@+id/jutri2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/jutri"
+        app:layout_constraintEnd_toStartOf="@+id/jutri_ikona"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/jutri"
+        app:layout_constraintTop_toTopOf="@+id/jutri"
+        tools:text="20" />
+    
+    <TextView
+        android:id="@+id/cez2dni2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez2dni"
+        app:layout_constraintEnd_toStartOf="@+id/cez2dni_ikona"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cez2dni"
+        app:layout_constraintTop_toTopOf="@+id/cez2dni"
+        tools:text="20" />
+    
+    <TextView
+        android:id="@+id/cez3dni2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez3dni"
+        app:layout_constraintEnd_toStartOf="@+id/cez3dni_ikona"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cez3dni"
+        app:layout_constraintTop_toTopOf="@+id/cez3dni"
+        tools:text="20" />
+    
+    <TextView
+        android:id="@+id/cez4dni2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez4dni"
+        app:layout_constraintEnd_toStartOf="@+id/cez4dni_ikona"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cez4dni"
+        app:layout_constraintTop_toTopOf="@+id/cez4dni"
+        tools:text="20" />
+    
+    <TextView
+        android:id="@+id/cez5dni2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez5dni"
+        app:layout_constraintEnd_toStartOf="@+id/cez5dni_ikona"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cez5dni"
+        app:layout_constraintTop_toTopOf="@+id/cez5dni"
+        tools:text="20" />
+    
+    <!--<TextView-->
+        <!--android:id="@+id/cez6dni2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/cez6dni"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/cez6dni_ikona"-->
+        <!--app:layout_constraintHorizontal_bias="1.0"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/cez6dni"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/cez6dni"-->
+        <!--tools:text="20" />-->
+    
+    <ImageView
+        android:id="@+id/danes_ikona"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/danes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/danes"
+        app:srcCompat="@drawable/ic_jasno" />
+    
+    <ImageView
+        android:id="@+id/jutri_ikona"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/jutri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/jutri"
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
+    
+    <ImageView
+        android:id="@+id/cez2dni_ikona"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez2dni"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cez2dni"
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
+    
+    <ImageView
+        android:id="@+id/cez3dni_ikona"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez3dni"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cez3dni"
+        app:srcCompat="@drawable/ic_jasno" />
+    <ImageView
+        android:id="@+id/cez4dni_ikona"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez4dni"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cez4dni"
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
+    
+    <ImageView
+        android:id="@+id/cez5dni_ikona"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cez5dni"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cez5dni"/>
+    
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"/>
+        
+    <!--<ImageView-->
+        <!--android:id="@+id/cez6dni_ikona"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/cez6dni"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/cez6dni"-->
+        <!--app:srcCompat="@drawable/ic_jasno" />-->
+
+
+</android.support.constraint.ConstraintLayout>

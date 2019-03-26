@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/crna">
+	
+	<TextView
+		android:id="@+id/regija"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:padding="5dp"
+		android:textAlignment="center"
+		android:textSize="25sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="Ljubjana-Bežigrad" />
+	
+	<TextView
+		android:id="@+id/datum"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/regija"
+		android:textAlignment="center"
+		android:textSize="24sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/regija"
+		tools:text="Petek, 08.03" />
+	
+	
+	<TextView
+		android:id="@+id/temp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/datum"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:textSize="75sp"
+		app:layout_constraintEnd_toStartOf="@+id/trenutno_ikona"
+		app:layout_constraintHorizontal_chainStyle="packed"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/stanjeOb"
+		tools:text="18C" />
+	
+	<TextView
+		android:id="@+id/stanjeOb"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/datum"
+		tools:text="Stanje ob: 12:00" />
+	
+	<ImageView
+		android:id="@+id/trenutno_ikona"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:adjustViewBounds="true"
+		android:scaleType="fitCenter"
+		app:layout_constraintBottom_toBottomOf="@+id/temp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_chainStyle="packed"
+		app:layout_constraintStart_toEndOf="@+id/temp"
+		app:layout_constraintTop_toTopOf="@+id/temp" />
+	
+	<!--<View-->
+	<!--android:id="@+id/divider"-->
+	<!--android:layout_width="match_parent"-->
+	<!--android:layout_height="2sp"-->
+	<!--android:layout_marginStart="80sp"-->
+	<!--android:layout_marginTop="40dp"-->
+	<!--android:layout_marginEnd="80sp"-->
+	<!--android:background="#FFF"-->
+	<!--app:layout_constraintStart_toStartOf="parent"-->
+	<!--app:layout_constraintTop_toBottomOf="@+id/temp" />-->
+	
+	
+	<TextView
+		android:id="@+id/vlaga"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:text="/"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/temp"
+		tools:text="Vlažnost: 48%" />
+	
+	<TextView
+		android:id="@+id/veter"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="15dp"
+		android:layout_marginTop="16dp"
+		android:text="/"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/vlaga"
+		tools:text="Veter: 5m/s" />
+	
+	<TextView
+		android:id="@+id/veterSunek"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="25dp"
+		android:layout_marginEnd="25dp"
+		android:text="/"
+		app:layout_constraintBottom_toBottomOf="@+id/veter"
+		app:layout_constraintEnd_toStartOf="@+id/veterSmer"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/veter"
+		tools:text="Sunek: 15m/s" />
+	
+	<TextView
+		android:id="@+id/veterSmer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="15dp"
+		android:text="TextView"
+		app:layout_constraintBottom_toBottomOf="@+id/veter"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/veter"
+		app:layout_constraintVertical_bias="0.0" />
+	
+	<android.support.v4.widget.NestedScrollView
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="50dp"
+		android:layout_marginEnd="8dp"
+		android:fillViewport="true"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/veter"
+		app:layout_constraintVertical_bias="1.0">
+		
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<ImageView
+				android:id="@+id/dan1_ikona"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="16dp"
+				app:layout_constraintBottom_toBottomOf="@+id/dan1"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/dan12"
+				app:layout_constraintTop_toTopOf="@+id/dan1"
+				app:srcCompat="@drawable/ic_zmerno_oblacno" />
+			
+			<ImageView
+				android:id="@+id/dan2_ikona"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="8dp"
+				app:layout_constraintBottom_toBottomOf="@+id/dan2"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/dan22"
+				app:layout_constraintTop_toTopOf="@+id/dan2"
+				app:srcCompat="@drawable/ic_zmerno_oblacno" />
+			
+			<TextView
+				android:id="@+id/dan12"
+				android:layout_width="80dp"
+				android:layout_height="0dp"
+				android:layout_marginStart="20dp"
+				android:gravity="center_vertical"
+				android:textSize="25sp"
+				app:layout_constraintBottom_toBottomOf="@+id/dan1"
+				app:layout_constraintStart_toEndOf="@+id/dan1"
+				app:layout_constraintTop_toTopOf="@+id/dan1"
+				app:layout_constraintVertical_bias="0.0"
+				tools:text="dan12" />
+			
+			<TextView
+				android:id="@+id/dan22"
+				android:layout_width="80dp"
+				android:layout_height="0dp"
+				android:layout_marginStart="20dp"
+				android:gravity="center_vertical"
+				android:textSize="25sp"
+				app:layout_constraintBottom_toBottomOf="@+id/dan2"
+				app:layout_constraintStart_toEndOf="@+id/dan2"
+				app:layout_constraintTop_toTopOf="@+id/dan2"
+				app:layout_constraintVertical_bias="0.0"
+				tools:text="dan22" />
+			
+			<TextView
+				android:id="@+id/dan2"
+				android:layout_width="156sp"
+				android:layout_height="wrap_content"
+				android:layout_margin="15sp"
+				android:layout_marginStart="12dp"
+				android:layout_marginTop="30dp"
+				android:textSize="20sp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/dan1"
+				tools:text="dan2\nneki" />
+			
+			<TextView
+				android:id="@+id/dan1"
+				android:layout_width="156sp"
+				android:layout_height="wrap_content"
+				android:layout_margin="15sp"
+				android:layout_marginStart="12dp"
+				android:layout_marginTop="8dp"
+				android:textSize="20sp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:text="dan1\nneki" />
+		</android.support.constraint.ConstraintLayout>
+	</android.support.v4.widget.NestedScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

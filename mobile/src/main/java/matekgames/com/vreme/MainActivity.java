@@ -1,24 +1,15 @@
 package matekgames.com.vreme;
 
-import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.os.Handler;
-import android.os.Message;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity {
+//Napoved napoved;
 
-    GPSTracker gps;
-    Postaje postaje;
+
     private static final String TAG = "MainActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
@@ -29,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Starting");
 
+//        napoved = new Napoved(getApplicationContext());
+
+
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         mViewPager = findViewById(R.id.container);
@@ -36,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        gps = new GPSTracker(getApplicationContext());
-        postaje = new Postaje();
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -48,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Tab4Fragment(), "Tab4");
         adapter.addFragment(new Tab5Fragment(), "Tab5");
         adapter.addFragment(new Tab6Fragment(), "Tab6");
+        adapter.addFragment(new Tab7Fragment(),"Tab7");
         viewPager.setAdapter(adapter);
+        int limit = (mSectionsPageAdapter.getCount() > 1 ? mSectionsPageAdapter.getCount() - 1 : 2);
+        mViewPager.setOffscreenPageLimit(limit);
+
 
     }
 
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-    gps.getLocation();
-    postaje.getPostaja();
-    }
 }
 

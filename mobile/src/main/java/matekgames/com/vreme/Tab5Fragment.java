@@ -1,10 +1,8 @@
 package matekgames.com.vreme;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,8 +10,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 
 public class Tab5Fragment extends Fragment {
@@ -42,6 +42,33 @@ public class Tab5Fragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+
+                File f=new File("/data/data/matekgames.com.vreme/databases/VremeData");
+                FileInputStream fis=null;
+                FileOutputStream fos=null;
+
+                try
+                {
+                    fis=new FileInputStream(f);
+                    fos=new FileOutputStream("/mnt/sdcard/VremeData.db");
+                    while(true)
+                    {
+                        int i=fis.read();
+                        if(i!=-1)
+                        {fos.write(i);}
+                        else
+                        {break;}
+                    }
+                    fos.flush();
+                    Toast.makeText(getContext(), "Database Export Successfully", Toast.LENGTH_LONG).show();
+
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "DB dump ERROR", Toast.LENGTH_LONG).show();
+                }
+
                 // Create class object
                 gps = new GPSTracker(getActivity());
 
@@ -49,14 +76,15 @@ public class Tab5Fragment extends Fragment {
                 if (gps.canGetLocation()) {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
-                    GPSTracker.LocationAddress locationAddress = new GPSTracker.LocationAddress();
-                    locationAddress.getAddressFromLocation(latitude, longitude,
-                            getContext(), new GeocoderHandler());
+//                    GPSTracker.LocationAddress locationAddress = new GPSTracker.LocationAddress();
+//                    locationAddress.getAddressFromLocation(latitude, longitude,
+//                            getContext(), new GeocoderHandler());
                     // \n is for new line
                     Toast.makeText(getActivity(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
                     String result = "Latitude: " + latitude + " Longitude: " + longitude;
                     tvAddress.setText(result);
                 } else {
+
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                     // Setting DialogHelp Title
                     alertDialog.setTitle("GPS is settings");

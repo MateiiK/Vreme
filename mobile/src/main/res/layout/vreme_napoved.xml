@@ -6,119 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/crna">
     
-    <TextView
-        android:id="@+id/regija"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="regija" />
-    
-    <TextView
-        android:id="@+id/datum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/regija"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regija"
-        tools:text="Datum" />
-    
-    
-    <TextView
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/datum"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textSize="75sp"
-        app:layout_constraintEnd_toStartOf="@+id/trenutno_ikona"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stanjeOb"
-        tools:text="18C" />
-    
-    <TextView
-        android:id="@+id/stanjeOb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datum"
-        tools:text="12:00" />
-    
-    <ImageView
-        android:id="@+id/trenutno_ikona"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/temp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/temp"
-        app:layout_constraintTop_toTopOf="@+id/temp"/>
-    
-    <!--<View-->
-    <!--android:id="@+id/divider"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="2sp"-->
-    <!--android:layout_marginStart="80sp"-->
-    <!--android:layout_marginTop="40dp"-->
-    <!--android:layout_marginEnd="80sp"-->
-    <!--android:background="#FFF"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/temp" />-->
-    
-    <TextView
-        android:id="@+id/dan1"
-        android:layout_width="156sp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/temp"
-        android:layout_margin="15sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temp"
-        tools:text="dan1" />
-    
-    <TextView
-        android:id="@+id/dan12"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/dan1"
-        app:layout_constraintEnd_toStartOf="@+id/dan1_ikona"
-        app:layout_constraintStart_toEndOf="@+id/dan1"
-        app:layout_constraintTop_toTopOf="@+id/dan1"
-        tools:text="dan12" />
-    
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="2sp"
-        android:layout_marginStart="50sp"
-        android:layout_marginTop="30sp"
-        android:layout_marginEnd="50sp"
-        android:background="#FFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dan1" />
     
     <TextView
         android:id="@+id/danes"
@@ -169,7 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center_vertical"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/danes"
         app:layout_constraintEnd_toStartOf="@+id/danes_ikona"
@@ -181,7 +69,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center_vertical"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/jutri"
         app:layout_constraintEnd_toStartOf="@+id/jutri_ikona"
@@ -193,7 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center_vertical"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/cez2dni"
         app:layout_constraintEnd_toStartOf="@+id/cez2dni_ikona"
@@ -205,40 +95,33 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center_vertical"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/cez3dni"
         app:layout_constraintEnd_toStartOf="@+id/cez3dni_ikona"
         app:layout_constraintTop_toTopOf="@+id/cez3dni"
         tools:text="20" />
     
-    <ImageView
-        android:id="@+id/dan1_ikona"
-        android:layout_width="wrap_content"
-        android:layout_height="40sp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/dan12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dan12"
-        app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
         android:id="@+id/danes_ikona"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/danes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/danes"
-        app:layout_optimizationLevel="dimensions"/>
+        app:layout_optimizationLevel="dimensions"
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
         android:id="@+id/jutri_ikona"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/jutri"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/jutri"
@@ -250,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cez2dni"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cez2dni"
@@ -261,10 +144,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cez3dni"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cez3dni" />
+        app:layout_constraintTop_toTopOf="@+id/cez3dni"
+        app:srcCompat="@drawable/ic_zmerno_oblacno" />
 
 
 </android.support.constraint.ConstraintLayout>

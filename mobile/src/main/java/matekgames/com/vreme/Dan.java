@@ -1,12 +1,5 @@
 package matekgames.com.vreme;
 
-import android.media.Image;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Dan {
 
     String datum;
@@ -19,10 +12,27 @@ public class Dan {
     String veter;
     String regija;
     String stanjeOb;
+    String vlaga;
+    String smerVetra;
+    String tlak;
+    String danVTednu;
+    String SunekVetra;
     double lat;
     double lon;
 
+    public String getDanVTednu() {
+        return danVTednu;
+    }
+    public void setDanVTednu(String danVTednu) {
+        this.danVTednu = danVTednu;
+    }
 
+    public String getRegija() {
+        return regija;
+    }
+    public void setRegija(String regija) {
+        this.regija = regija;
+    }
 
     public String getDatum() {
         return datum;
@@ -73,19 +83,32 @@ public class Dan {
         this.veter = veter;
     }
 
-    public String getRegija(){
-        return regija;
+    public String getSmerVetra(){
+        return smerVetra;
     }
-    public void setRegija(String regija){
-        this.regija = regija;
+    public void setSmerVetra(String smerVetra){
+        this.smerVetra = smerVetra;
     }
 
-    public String getStanjeOb(){
-        return stanjeOb;
+    public String getSunekVetra(){
+        return SunekVetra;
     }
-    public void setStanjeOb(String stanjeOb){
-        this.stanjeOb = stanjeOb;
+    public void setSunekVetra(String SunekVetra){
+        this.SunekVetra = SunekVetra;
     }
+
+    public String getVlaga(){
+        return vlaga;
+    }
+    public void setVlaga(String vlaga){
+        this.vlaga = vlaga;
+    }
+
+    public String getTlak(){return tlak;}
+    public void setTlak(String tlak){this.tlak = tlak;}
+
+    public String getStanjeOb(){return stanjeOb;}
+    public void setStanjeOb(String stanjeOb){this.stanjeOb = stanjeOb;}
 
     public int getIcon(){
         return icon;
@@ -94,10 +117,6 @@ public class Dan {
         this.icon = icon;
     }
 
-    public Double getLjubljanaLongtitude(){return lon=14.5172;}
-    public Double getLjubljanaLatitude(){return lat=46.0658;}
-    public Double getBiljeLongtitude(){return lon=13.6289;}
-    public Double getBiljeLatitude(){return lat=45.8958;}
 
 
 

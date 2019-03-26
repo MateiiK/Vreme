@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
@@ -20,4 +21,72 @@
 		android:layout_alignParentBottom="true"
 		android:layout_marginTop="124dp"
 		android:layout_marginBottom="134dp" />
+	
+	<ImageView
+		android:id="@+id/imageView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/btnShowLocation"
+		android:layout_marginTop="41dp"
+		app:srcCompat="@drawable/ic_zmerno_oblacno_noc" />
+	
+	<ImageView
+		android:id="@+id/imageView2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView"
+		android:layout_marginTop="18dp"
+		app:srcCompat="@drawable/ic_zmerno_oblacno2" />
+	
+	<ImageView
+		android:id="@+id/imageView3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView2"
+		android:layout_marginTop="48dp"
+		app:srcCompat="@drawable/ic_pretezno_jasno_noc" />
+	
+	<ImageView
+		android:id="@+id/imageView4"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView3"
+		android:layout_marginTop="12dp"
+		app:srcCompat="@drawable/ic_pretezno_jasno" />
+	
+	<ImageView
+		android:id="@+id/imageView5"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView4"
+		android:layout_marginTop="25dp"
+		app:srcCompat="@drawable/ic_polna_luna" />
+	
+	<ImageView
+		android:id="@+id/imageView6"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView5"
+		android:layout_marginTop="39dp"
+		app:srcCompat="@drawable/ic_luncccca" />
+	
+	<ImageView
+		android:id="@+id/imageView7"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/btnShowLocation"
+		android:layout_marginStart="43dp"
+		android:layout_marginTop="48dp"
+		android:layout_toEndOf="@+id/imageView"
+		app:srcCompat="@drawable/ic_luncaaaa" />
+	
+	<ImageView
+		android:id="@+id/imageView8"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/imageView7"
+		android:layout_marginStart="44dp"
+		android:layout_marginTop="51dp"
+		android:layout_toEndOf="@+id/imageView2"
+		app:srcCompat="@drawable/ic_lunca" />
 </RelativeLayout>
