@@ -4,10 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/crna">
-    
+    style="@style/Crna">
     
     <TextView
+        android:id="@+id/kraj"
+        style="@style/Crna"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Slovenija / jugozahod" />
+    
+    <TextView
+        style="@style/Crna"
         android:id="@+id/danes"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
@@ -15,10 +28,11 @@
         android:layout_marginTop="15dp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/kraj"
         tools:text="danes vreme\nneki" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/jutri"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
@@ -30,6 +44,7 @@
         tools:text="jutri\nneki" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/cez2dni"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
@@ -41,6 +56,7 @@
         tools:text="pojustrinjem\nneki" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/cez3dni"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
@@ -52,6 +68,7 @@
         tools:text="cez 3 dni\nneki" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/danes2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -65,6 +82,7 @@
         tools:text="20" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/jutri2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -78,6 +96,7 @@
         tools:text="20" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/cez2dni2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -91,6 +110,7 @@
         tools:text="20" />
     
     <TextView
+        style="@style/Crna"
         android:id="@+id/cez3dni2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -103,8 +123,8 @@
         app:layout_constraintTop_toTopOf="@+id/cez3dni"
         tools:text="20" />
     
-    
     <ImageView
+        style="@style/Crna"
         android:id="@+id/danes_ikona"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -117,6 +137,7 @@
         app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
+        style="@style/Crna"
         android:id="@+id/jutri_ikona"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -129,6 +150,7 @@
         app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
+        style="@style/Crna"
         android:id="@+id/cez2dni_ikona"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -140,6 +162,7 @@
         app:srcCompat="@drawable/ic_zmerno_oblacno" />
     
     <ImageView
+        style="@style/Crna"
         android:id="@+id/cez3dni_ikona"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

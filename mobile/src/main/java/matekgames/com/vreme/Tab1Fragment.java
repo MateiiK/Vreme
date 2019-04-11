@@ -187,9 +187,10 @@ public class Tab1Fragment extends Fragment {
                                 temp.setText(trenutnoVreme.get(0).getTemp());
                                 stanjeOb.setText(trenutnoVreme.get(0).getStanjeOb());
                                 trenutno_ikona.setImageResource(trenutnoVreme.get(0).getIcon());
-                                vlaga.setText("Vlažnost: "+trenutnoVreme.get(0).getVlaga()+ "%");
-                                veter.setText("Veter: "+trenutnoVreme.get(0).getVeter()+"m/s");
-                                tlak.setText("Tlak: "+trenutnoVreme.get(0).getTlak()+"hPa");
+                                vlaga.setText(trenutnoVreme.get(0).getRazmere());
+                                tlak.setText("Vlažnost: "+trenutnoVreme.get(0).getVlaga()+ "%"+"\n"+"Tlak: "+trenutnoVreme.get(0).getTlak()+"hPa");
+                                veter.setText("Veter: "+trenutnoVreme.get(0).getVeter()+"m/s"+"\n"+"Smer: "+trenutnoVreme.get(0).getSmerVetra());
+//                                tlak.setText("Tlak: "+trenutnoVreme.get(0).getTlak()+"hPa");
                             }
                         });
                         trenutno.close();
@@ -235,16 +236,21 @@ public class Tab1Fragment extends Fragment {
                     if (name.equals("metData")) {
                         dnevi = new Dan();
                     } else if (dnevi != null) {
-                        if (name.equals("valid_day")) {
-                            dnevi.setDanVTednu(CETStran(parserZjutrajPopoldne.nextText()));
-                        } else if (name.equals("t")) {
-                            dnevi.setTemp(parserZjutrajPopoldne.nextText());
-                        }else if (name.equals("nn_shortText")) {
-                            String text=parserZjutrajPopoldne.nextText();
-                            dnevi.setRazmere(text);
-                            dnevi.setIcon(Ikona(text));
-                        }else if (name.equals("valid_daypart")) {
-                            dnevi.setDelDneva(parserZjutrajPopoldne.nextText());
+                        switch (name) {
+                            case "valid_day":
+                                dnevi.setDanVTednu(CETStran(parserZjutrajPopoldne.nextText()));
+                                break;
+                            case "t":
+                                dnevi.setTemp(parserZjutrajPopoldne.nextText());
+                                break;
+                            case "nn_shortText":
+                                String text = parserZjutrajPopoldne.nextText();
+                                dnevi.setRazmere(text);
+                                dnevi.setIcon(Ikona(text));
+                                break;
+                            case "valid_daypart":
+                                dnevi.setDelDneva(parserZjutrajPopoldne.nextText());
+                                break;
                         }
                     }
                     break;
@@ -271,6 +277,7 @@ public class Tab1Fragment extends Fragment {
         while (eventType != XmlPullParser.END_DOCUMENT){
             String name;
             String text;
+            String razm;
             switch (eventType){
                 case XmlPullParser.START_DOCUMENT:
                 Dan = new ArrayList();
@@ -280,24 +287,38 @@ public class Tab1Fragment extends Fragment {
                     if (name.equals("metData")) {
                         trenutnoVreme = new Dan();
                     }else if(trenutnoVreme != null) {
-                        if (name.equals("domain_shortTitle")) {
-                            trenutnoVreme.setRegija(parserVremeTrenutno.nextText());
-                        } else if (name.equals("tsValid_issued_day")) {
-                            trenutnoVreme.setDanVTednu(CETStran(parserVremeTrenutno.nextText()));
-                        } else if (name.equals("t")) {
-                            trenutnoVreme.setTemp(parserVremeTrenutno.nextText() + getString(R.string.celzija));
-                        } else if (name.equals("tsValid_issued")) {
-                            text = parserVremeTrenutno.nextText();
-                            trenutnoVreme.setStanjeOb("Stanje ob: " + Ura(text));
-                            trenutnoVreme.setDatum(Datum(text));
-                        } else if (name.equals("nn_shortText")) {
-                            trenutnoVreme.setIcon(Ikona(parserVremeTrenutno.nextText()));
-                        } else if (name.equals("rh")) {
-                            trenutnoVreme.setVlaga(parserVremeTrenutno.nextText());
-                        } else if (name.equals("ff_val")) {
-                            trenutnoVreme.setVeter(parserVremeTrenutno.nextText());
-                        } else if (name.equals("msl")) {
-                            trenutnoVreme.setTlak(parserVremeTrenutno.nextText());
+                        switch (name) {
+                            case "domain_shortTitle":
+                                trenutnoVreme.setRegija(parserVremeTrenutno.nextText());
+                                break;
+                            case "tsValid_issued_day":
+                                trenutnoVreme.setDanVTednu(CETStran(parserVremeTrenutno.nextText()));
+                                break;
+                            case "t":
+                                trenutnoVreme.setTemp(parserVremeTrenutno.nextText() + getString(R.string.celzija));
+                                break;
+                            case "tsValid_issued":
+                                text = parserVremeTrenutno.nextText();
+                                trenutnoVreme.setStanjeOb("Stanje ob: " + Ura(text));
+                                trenutnoVreme.setDatum(Datum(text));
+                                break;
+                            case "nn_shortText":
+                                razm=parserVremeTrenutno.nextText();
+                                trenutnoVreme.setIcon(Ikona(razm));
+                                trenutnoVreme.setRazmere(razm);
+                                break;
+                            case "rh":
+                                trenutnoVreme.setVlaga(parserVremeTrenutno.nextText());
+                                break;
+                            case "ff_val":
+                                trenutnoVreme.setVeter(parserVremeTrenutno.nextText());
+                                break;
+                            case "dd_longText":
+                                trenutnoVreme.setSmerVetra(parserVremeTrenutno.nextText());
+                                break;
+                            case "msl":
+                                trenutnoVreme.setTlak(parserVremeTrenutno.nextText());
+                                break;
                         }
                     }
                         break;
@@ -328,21 +349,28 @@ public class Tab1Fragment extends Fragment {
 
     private int Ikona(String ikona) {
         int resId;
-        if (ikona.equals("jasno")) {
-            resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
-            return resId;
-        } else if (ikona.equals("delno oblačno")){
-            resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else if (ikona.equals("pretežno oblačno") || (ikona.equals("zmerno oblačno"))){
-            resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else if (ikona.equals("oblačno")){
-            resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else {
-            resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
-            return resId;
+        switch (ikona) {
+            case "":
+                return 0;
+            case "jasno":
+                resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "delno oblačno":
+                resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "pretežno oblačno":
+            case "zmerno oblačno":
+                resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "oblačno":
+                resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "pretežno jasno":
+                resId = getResources().getIdentifier("ic_pretezno_jasno","drawable",getActivity().getPackageName());
+                return resId;
+            default:
+                resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
+                return resId;
         }
         }
 

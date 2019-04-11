@@ -1,7 +1,7 @@
 package matekgames.com.vreme;
 
 public class Dan {
-
+    public final static String Postaje_danVTednu="danVTednu";  // name of employee
     String datum;
     String delDneva;
     int icon;

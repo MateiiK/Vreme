@@ -8,12 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -36,7 +34,7 @@ public class Tab3Fragment extends Fragment {
     Integer count =0;
     Spinner spin;
 
-    String[] bankNames={"Bela krajina","Bovška","Dolenjska","Gorenjska","Goriška","Kočevska","Koroška","Ljubljana in okolica","Notranjska","Obala","Podravje","Pomurje","Savinjska","Spodnje Posavje","Zgornjesavska"};
+    String[] pokrajine={"Bela krajina","Bovška","Dolenjska","Gorenjska","Goriška","Kočevska","Koroška","Ljubljana in okolica","Notranjska","Obala","Podravje","Pomurje","Savinjska","Spodnje Posavje","Zgornjesavska"};
 
     private static final String TAG = "Tab3Fragment";
 
@@ -79,9 +77,10 @@ public class Tab3Fragment extends Fragment {
         ShowIt();
 
 //        spin.setOnItemSelectedListener();
-
-        ArrayAdapter aa = new ArrayAdapter(this.getActivity(),android.R.layout.simple_spinner_item,bankNames);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter aa = new ArrayAdapter(this.getActivity(),R.layout.spinner_item,pokrajine);
+        aa.setDropDownViewResource(R.layout.spinner_item);
+//        ArrayAdapter aa = new ArrayAdapter(this.getActivity(),android.R.layout.simple_spinner_item,pokrajine);
+//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //Setting the ArrayAdapter data on the Spinner
         spin.setAdapter(aa);
 
@@ -238,21 +237,28 @@ public class Tab3Fragment extends Fragment {
 
     private int Ikona(String ikona) {
         int resId;
-        if (ikona.equals("jasno")) {
-            resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
-            return resId;
-        } else if (ikona.equals("delno oblačno")){
-            resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else if (ikona.equals("pretežno oblačno") || (ikona.equals("zmerno oblačno"))){
-            resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else if (ikona.equals("oblačno")){
-            resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else {
-            resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
-            return resId;
+        switch (ikona) {
+            case "":
+                return 0;
+            case "jasno":
+                resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "delno oblačno":
+                resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "pretežno oblačno":
+            case "zmerno oblačno":
+                resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "oblačno":
+                resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "pretežno jasno":
+                resId = getResources().getIdentifier("ic_pretezno_jasno","drawable",getActivity().getPackageName());
+                return resId;
+            default:
+                resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
+                return resId;
         }
     }
 

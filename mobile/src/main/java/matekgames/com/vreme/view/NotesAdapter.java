@@ -78,9 +78,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
             return fmtOut.format(date);
         } catch (ParseException e) {
-
         }
-
         return "";
     }
 }

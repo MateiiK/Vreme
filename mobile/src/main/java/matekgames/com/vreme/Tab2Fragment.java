@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import matekgames.com.vreme.database.DatabaseHelper;
+
 public class Tab2Fragment extends Fragment {
 
     private static final String TAG = "Tab2Fragment";
@@ -36,12 +38,13 @@ public class Tab2Fragment extends Fragment {
     TextView[] vNaprej;
     TextView[] vNaprej2;
     ImageView[] ikone;
+    TextView regija;
     int count = 0;
     MyDB mojabaza;
     Data dbHelper;
     SQLiteDatabase database;
     Dan dan;
-
+    DatabaseHelper test;
     public final static String Postaje_Ime="Postaje"; // name of table
 
 
@@ -56,9 +59,11 @@ public class Tab2Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.vreme_napoved,container,false);
+        View view = inflater.inflate(R.layout.napoved_prognostika,container,false);
         postaje = new Postaje();
         najblizjaPostaja = postaje.getPostajeNapoved(getContext());
+
+        regija = view.findViewById(R.id.kraj);
 
         vNaprej = new TextView[4];
         vNaprej[0] = view.findViewById(R.id.danes);
@@ -80,10 +85,12 @@ public class Tab2Fragment extends Fragment {
 
 
 mojabaza = new MyDB(getContext());
-        dan = new Dan();
+//        dan = new Dan();
         napoved();
-        ShowIt();
+//        ShowIt();
         setRetainInstance(true);
+
+        test = new DatabaseHelper(getContext());
 
         return view;
     }
@@ -92,18 +99,18 @@ mojabaza = new MyDB(getContext());
     public void onResume() {
         super.onResume();
         setRetainInstance(true);
-        ShowIt();
+//        ShowIt();
         if(update) {
-//            napoved();
+            napoved();
             update = false;
         }
     }
 
 
     private void ShowIt(){
-
         for(int i=0;i<4;i++) {
-                vNaprej[i].setText(dan.getDanVTednu());
+            vNaprej[i].setText(dan.getDanVTednu()+"\n"+dan.getRazmere());
+            vNaprej2[i].setText(dan.getMinTemp()+" / " +dan.getMaxTemp());
 //                vNaprej[i].setText(mojabaza.selectRecords().getString(0) + "\n" + mojabaza.selectRecords().getString(1));
 //                vNaprej2[i].setText(mojabaza.selectRecords().getString(2) + " / " + mojabaza.selectRecords().getString(3));
 //            Log.e("Baza", mojabaza.selectRecords().getString(0));
@@ -174,19 +181,21 @@ mojabaza = new MyDB(getContext());
                         parserVnaprej.setInput(insVnaprej, null);
                         dnevi2 = parseVnaprej(parserVnaprej);
 
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                String text;
-//                                String text2;
-//
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
                                 for (Dan dan : dnevi2) {
+                                    regija.setText(dan.getRegija().substring(0,1).toUpperCase()+dan.getRegija().substring(1));
+                                    vNaprej[count].setText(dan.getDanVTednu()+"\n"+dan.getRazmere());
+                                    vNaprej2[count].setText(dan.getMinTemp()+ getString(R.string.celzija)+" / "+dan.getMaxTemp()+ getString(R.string.celzija));
+//                                    test.insertNote(dan.getDatum());
 //                                    db.insertNote(dan.getDanVTednu());
-                                    mojabaza.createRecords(dan.getDatum(),dan.getRazmere(),dan.getMinTemp(),dan.getMaxTemp());
-                                }
-//                                count = 0;
-//                            }
-//                        });
+//                                    mojabaza.createRecords(dan.getDatum(),dan.getRazmere(),dan.getMinTemp(),dan.getMaxTemp());
+                                    count++;
+                                }count = 0;
+                            }
+                        });
 
                         insVnaprej.close();
                     } catch (XmlPullParserException e) {
@@ -228,9 +237,11 @@ mojabaza = new MyDB(getContext());
                     if (name.equals("metData")) {
                         dnevi2 = new Dan();
                     } else if (dnevi2 != null) {
-                        if (name.equals("valid_day")) {
-                            dnevi2.setDatum(CETStran(parserVnaprej.nextText()));
-                        } else if (name.equals("tn")) {
+                        if (name.equals("domain_longTitle")) {
+                            dnevi2.setRegija(parserVnaprej.nextText());
+                        }else if (name.equals("valid_day")) {
+                            dnevi2.setDanVTednu(CETStran(parserVnaprej.nextText()));
+                        }else if (name.equals("tn")) {
                             dnevi2.setMinTemp(parserVnaprej.nextText());
                         }else if (name.equals("tx")) {
                             dnevi2.setMaxTemp(parserVnaprej.nextText());
@@ -264,21 +275,28 @@ mojabaza = new MyDB(getContext());
     }
     private int Ikona(String ikona) {
         int resId;
-        if (ikona.equals("jasno")) {
-            resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
-            return resId;
-        } else if (ikona.equals("delno oblačno")){
-            resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else if (ikona.equals("pretežno oblačno") || (ikona.equals("zmerno oblačno"))){
-            resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else if (ikona.equals("oblačno")){
-            resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
-            return resId;
-        }else {
-            resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
-            return resId;
+        switch (ikona) {
+            case "":
+                return 0;
+            case "jasno":
+                resId = getResources().getIdentifier("ic_jasno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "delno oblačno":
+                resId = getResources().getIdentifier("ic_delno_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "pretežno oblačno":
+            case "zmerno oblačno":
+                resId = getResources().getIdentifier("ic_zmerno_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "oblačno":
+                resId = getResources().getIdentifier("ic_oblacno", "drawable", getActivity().getPackageName());
+                return resId;
+            case "pretežno jasno":
+                resId = getResources().getIdentifier("ic_pretezno_jasno","drawable",getActivity().getPackageName());
+                return resId;
+            default:
+                resId = getResources().getIdentifier("ic_pretezno_jasno_noc", "drawable", getActivity().getPackageName());
+                return resId;
         }
     }
 
